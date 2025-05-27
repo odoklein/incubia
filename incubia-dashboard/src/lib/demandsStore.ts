@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid'
 
 // src/lib/demandsStore.ts
 export const DEMANDS = [
