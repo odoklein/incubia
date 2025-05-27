@@ -69,22 +69,24 @@ export default function MentorDetailPage() {
 
 
   async function addNote() {
-    if (!newNote.trim()) return
-    setAddingNote(true)
-    const res = await fetch(`/api/demands/${id}/notes`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: newNote }),
-    })
-    if (res.ok) {
-      const note = await res.json()
+  if (!newNote.trim()) return
+  setAddingNote(true)
+  const res = await fetch(`/api/demands/${id}/notes`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content: newNote }),
+  })
+  if (res.ok) {
+    const note = await res.json()
+    if (demand) {
       setDemand({ ...demand, notes: [...demand.notes, note] })
-      setNewNote('')
-    } else {
-      alert('Erreur lors de l\'ajout de la note')
     }
-    setAddingNote(false)
+    setNewNote('')
+  } else {
+    alert('Erreur lors de l\'ajout de la note')
   }
+  setAddingNote(false)
+}
 
   return (
     <div className="max-w-3xl mx-auto p-4">
