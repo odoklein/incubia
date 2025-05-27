@@ -51,19 +51,22 @@ export default function MentorDetailPage() {
   if (!demand) return <p>Demande introuvable.</p>
 
   async function updateStatus(newStatus: string) {
-    setStatusUpdating(true)
-    const res = await fetch(`/api/demands/${id}/status`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: newStatus }),
-    })
-    if (res.ok) {
-      setDemand({ ...demand, status: newStatus })
-    } else {
-      alert('Erreur lors de la mise à jour du statut')
+  setStatusUpdating(true)
+  const res = await fetch(`/api/demands/${id}/status`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: newStatus }),
+  })
+  if (res.ok) {
+    if (demand) {
+      setDemand({ ...demand, status: newStatus }) // demand is guaranteed not null here
     }
-    setStatusUpdating(false)
+  } else {
+    alert('Erreur lors de la mise à jour du statut')
   }
+  setStatusUpdating(false)
+}
+
 
   async function addNote() {
     if (!newNote.trim()) return
