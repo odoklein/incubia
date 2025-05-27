@@ -1,3 +1,4 @@
+// src/pages/mentors/[id].tsx
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -16,7 +17,7 @@ type Demand = {
   }
   status: string
   createdAt: string
-  metadata: Record<string, any>
+  metadata: Record<string, unknown>  // Changed 'any' to 'unknown' to satisfy ESLint
   notes: Note[]
 }
 
@@ -87,12 +88,11 @@ export default function MentorDetailPage() {
       <h1 className="text-2xl font-bold mb-4">Détails de la demande</h1>
 
       <section className="mb-6">
-      <h2>Informations du candidat</h2>
-<p><strong>Nom:</strong> {demand.applicantName}</p>
-<p><strong>Email:</strong> {demand.applicantEmail}</p>
-{demand.applicantPhone && <p><strong>Téléphone:</strong> {demand.applicantPhone}</p>}
-<p><strong>Date de création:</strong> {new Date(demand.createdAt).toLocaleString()}</p>
-
+        <h2>Informations du candidat</h2>
+        <p><strong>Nom:</strong> {demand.applicant.name}</p>
+        <p><strong>Email:</strong> {demand.applicant.email}</p>
+        {demand.applicant.phone && <p><strong>Téléphone:</strong> {demand.applicant.phone}</p>}
+        <p><strong>Date de création:</strong> {new Date(demand.createdAt).toLocaleString()}</p>
       </section>
 
       <section className="mb-6">
