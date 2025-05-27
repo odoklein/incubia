@@ -76,17 +76,22 @@ export default function MentorDetailPage() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ content: newNote }),
   })
+
   if (res.ok) {
     const note = await res.json()
     if (demand) {
-      setDemand({ ...demand, notes: [...demand.notes, note] })
+      setDemand({
+        ...demand,
+        notes: [...demand.notes, note],
+      } as Demand)  // <-- Cast here
     }
     setNewNote('')
   } else {
-    alert('Erreur lors de l\'ajout de la note')
+    alert("Erreur lors de l'ajout de la note")
   }
   setAddingNote(false)
 }
+
 
   return (
     <div className="max-w-3xl mx-auto p-4">
