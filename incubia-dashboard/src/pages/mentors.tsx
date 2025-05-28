@@ -13,16 +13,22 @@ export default function MentorsPage() {
   const [demands, setDemands] = useState<Demand[]>([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    async function fetchDemands() {
-      const res = await fetch('/api/demands?type=mentor')
-      const data = await res.json()
-      console.log('Fetched demands:', data)
+useEffect(() => {
+  async function fetchDemands() {
+    const res = await fetch('/api/demands?type=mentor')
+    const data = await res.json()
+    console.log('Fetched demands:', data)  // Check what you get from the API
+    if (Array.isArray(data)) {
       setDemands(data)
-      setLoading(false)
+    } else {
+      setDemands([])  // fallback to empty array if not an array
+      console.error('Expected array but got:', data)
     }
-    fetchDemands()
-  }, [])
+    setLoading(false)
+  }
+  fetchDemands()
+}, [])
+
 
   if (loading) return <p>Loading...</p>
 
