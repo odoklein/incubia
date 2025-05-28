@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import clientPromise from '@/lib/mongodb'  // your fixed client promise
+import clientPromise from '@/lib/mongodb'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const client = await clientPromise  // await here
-    const db = client.db()
+    const client = await clientPromise
+    const db = client.db()  // This is the line where 'db' is declared, but not used.
 
-    // do something with db...
+    // You can add logic here to interact with the db, or remove it if not needed.
 
     res.status(200).json({ message: 'Success' })
   } catch (error) {
